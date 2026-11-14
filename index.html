@@ -3,49 +3,139 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Boards – classic board games and puzzles</title>
-<link rel="icon" href="icon.png">
-<style>
-:root{--bg:#F4F5FB;--card:#FFFFFF;--text:#1C1F3A;--muted:#5B6080;--accent:#3D4CAE;--gold:#C9962E;--line:#E2E4F0}
-@media (prefers-color-scheme:dark){:root{--bg:#12142A;--card:#1E2140;--text:#F1F2FA;--muted:#A8ACC8;--accent:#9AA6FF;--gold:#F5C66B;--line:#2E3258}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-header{background:linear-gradient(135deg,#5C6BD6,#3D4CAE 55%,#6A3FB0);color:#fff;border-bottom:3px solid #F5C66B}
-.wrap{max-width:760px;margin:0 auto;padding:0 16px}
-header .wrap{display:flex;align-items:center;gap:12px;padding-top:14px;padding-bottom:14px}
-header img{width:40px;height:40px;border-radius:10px}
-header a{color:#fff;text-decoration:none;font-weight:800;font-size:20px}
-nav{margin-left:auto;display:flex;gap:14px;font-size:14px}
-nav a{font-weight:600;font-size:14px;color:#FFE7A3}
-main{padding:28px 0 40px}
-h1{font-size:30px;margin:0 0 4px}
-.updated{color:var(--muted);font-size:14px;margin:0 0 20px}
-h2{font-size:19px;margin:28px 0 6px;color:var(--accent)}
-p,li{color:var(--text)}
-ul{padding-left:22px}
-a{color:var(--accent)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;margin-top:18px}
-footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;padding:18px 0 30px}
-.hero{text-align:center;padding:40px 0 10px}
-.hero img{width:120px;height:120px;border-radius:28px;box-shadow:0 0 28px rgba(245,198,107,.55)}
-.hero h1{font-size:40px;margin:18px 0 6px}
-.hero p{color:var(--muted);font-size:18px;margin:0 auto;max-width:520px}
-.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:8px}
-.game{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-weight:600}
-</style>
+<title>Shivi's Games – Boards, Rogue Altitude and MindSprint</title>
+<meta name="description" content="Shivi's Games makes free mobile games: Boards (chess, Ludo, Sudoku and more), Rogue Altitude (jetpack arena battles) and MindSprint (focus and memory puzzles).">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%233D4CAE'/%3E%3Ctext x='32' y='45' font-family='Arial,sans-serif' font-size='38' font-weight='800' text-anchor='middle' fill='%23F5C66B'%3ES%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="Shivi's Games">
+<meta property="og:description" content="Free mobile games: Boards, Rogue Altitude and MindSprint.">
+<meta property="og:image" content="https://sheevigames.github.io/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<header><div class="wrap"><img src="icon.png" alt=""><a href="index.html">Boards</a>
-<nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></div></header>
-<main><div class="wrap">
-<section class="hero"><img src="icon.png" alt="Boards app icon">
-<h1>Boards</h1>
-<p>Classic board games and word puzzles in one free app. Play the computer, friends on one phone, or friends nearby over Bluetooth, with a new Daily Challenge every day.</p></section>
-<div class="card"><h2 style="margin-top:0">Games</h2><div class="games"><div class="game">🐍 Snakes &amp; Ladders</div><div class="game">🎲 Ludo</div><div class="game">♟️ Chess</div><div class="game">🔴 Checkers</div><div class="game">🎯 Carrom</div><div class="game">🏒 Sling Puck</div><div class="game">🔤 Word Search, Scramble, Guess the Word &amp; Word Ladder</div><div class="game">🔢 Sudoku</div></div></div>
-<div class="card"><h2 style="margin-top:0">Support</h2><p>Questions or feedback? Email us at <a href="mailto:sheevigames@gmail.com">sheevigames@gmail.com</a>.</p>
-<p><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></p></div>
-<div class="card"><h2 style="margin-top:0">MindSprint</h2><p>Brain-training puzzles in a free mobile app.</p><p><a href="mindsprint-privacy.html">MindSprint Privacy Policy</a> · <a href="mindsprint-terms.html">MindSprint Terms of Use</a></p></div>
-</div></main>
-<footer><div class="wrap">© 2026 Shivi's Games · <a href="mailto:sheevigames@gmail.com">sheevigames@gmail.com</a></div></footer>
+
+<header class="top"><div class="wrap">
+  <a class="logo" href="#top" aria-label="Shivi's Games home"><span class="logo-mark" aria-hidden="true">S</span>Shivi's Games</a>
+  <nav aria-label="Main">
+    <a href="#games">Games</a>
+    <a class="hide-sm" href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</div></header>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-dots" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Independent game studio</span>
+      <h1>Small games,<br><span>big fun.</span></h1>
+      <p>We make free mobile games you can pick up in a minute: classic boards with friends, jetpack battles in the sky, and quick puzzles to sharpen your mind.</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="#games">See our games</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-icons" aria-hidden="true">
+      <img src="icon.png" alt="">
+      <img src="rogue-altitude-icon-256.png" alt="">
+      <img src="mindsprint-icon.png" alt="">
+    </div>
+  </div>
+</section>
+
+<section class="block" id="games"><div class="wrap">
+  <div class="section-head">
+    <h2>Our games</h2>
+    <p>Three free apps, each built to be played in short bursts or long sessions.</p>
+  </div>
+
+  <div class="apps">
+    <article class="app boards" id="boards">
+      <img class="app-icon" src="icon.png" alt="Boards app icon" width="128" height="128">
+      <div>
+        <h3><a href="boards/">Boards</a></h3>
+        <div class="sub">Chess, Ludo &amp; Sudoku</div>
+        <p class="desc">Classic board games and word puzzles in one app. Play the computer at your level, pass one phone around, or connect with friends nearby over Bluetooth. A new Daily Challenge every day, in seven languages.</p>
+        <ul class="chips" aria-label="Games in Boards">
+          <li>♟️ Chess</li><li>🎲 Ludo</li><li>🔴 Checkers</li><li>🎯 Carrom</li><li>🐍 Snakes &amp; Ladders</li><li>🏒 Sling Puck</li><li>🔢 Sudoku</li><li>🔤 Word puzzles</li>
+        </ul>
+        <div class="app-foot">
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.shivi.boards" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D7FE" d="M3.6 1.8 13.4 12l-9.8 10.2c-.4-.2-.6-.7-.6-1.2V3c0-.5.2-1 .6-1.2Z"/><path fill="#FFCE00" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2l-3.9-2.4Z"/><path fill="#FF3A44" d="M13.4 12 3.6 22.2c.4.2.9.2 1.4 0l11.8-6.8-3.4-3.4Z"/><path fill="#00F076" d="M3.6 1.8c.4-.2.9-.2 1.4 0l11.8 6.8-3.4 3.4L3.6 1.8Z"/></svg>
+            <span><small>GET IT ON</small>Google Play</span>
+          </a>
+          <div class="legal-links"><a class="app-link" href="boards/">Game page →</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="app rogue" id="rogue-altitude">
+      <img class="app-icon" src="rogue-altitude-icon-256.png" alt="Rogue Altitude app icon" width="128" height="128">
+      <div>
+        <h3><a href="rogue-altitude/">Rogue Altitude</a></h3>
+        <div class="sub">Jetpack Arena</div>
+        <p class="desc">Strap on a jetpack and battle in the sky. Train against bots, then take on friends in the same room over Bluetooth or local Wi-Fi. Earn XP, climb the ranks, finish daily contracts and unlock new pilots and gear.</p>
+        <ul class="chips" aria-label="Rogue Altitude features">
+          <li>🚀 Jetpack combat</li><li>📶 Local multiplayer</li><li>🎯 Training vs bots</li><li>🏅 Ranks &amp; career XP</li><li>📋 Daily contracts</li><li>🧑‍✈️ Unlockable pilots</li>
+        </ul>
+        <div class="app-foot">
+          <span class="soon">Coming soon to Google Play</span>
+          <div class="legal-links"><a class="app-link" href="rogue-altitude/">Game page →</a><a href="rogue-altitude-privacy.html">Privacy Policy</a><a href="rogue-altitude-terms.html">Terms of Use</a><a href="rogue-altitude-delete-data.html">Delete your data</a></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="app mind" id="mindsprint">
+      <img class="app-icon" src="mindsprint-icon.png" alt="MindSprint app icon" width="128" height="128">
+      <div>
+        <h3><a href="mindsprint/">MindSprint</a></h3>
+        <div class="sub">Focus &amp; Memory</div>
+        <p class="desc">Quick brain games that train focus, logic and memory. Seven puzzles in one app: sort colours, connect numbers, plant gardens, clear arrows and remember patterns across hundreds of levels, with a Daily Challenge that grows with you.</p>
+        <ul class="chips" aria-label="Games in MindSprint">
+          <li>🧪 Water Sort</li><li>🧩 Pipe Path</li><li>➡️ Arrow Drift</li><li>🌱 Garden Grid</li><li>🐝 Hive Fill</li><li>🏮 Memory Lanterns</li><li>🏍️ Rider Rush</li>
+        </ul>
+        <div class="app-foot">
+          <span class="soon">Coming soon to Google Play</span>
+          <div class="legal-links"><a class="app-link" href="mindsprint/">Game page →</a><a href="mindsprint-privacy.html">Privacy Policy</a><a href="mindsprint-terms.html">Terms of Use</a></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</div></section>
+
+<section class="block" id="about"><div class="wrap">
+  <div class="section-head">
+    <h2>How we make games</h2>
+    <p>Shivi's Games is a small independent studio. A few things we care about in every app:</p>
+  </div>
+  <div class="values">
+    <div class="value"><div class="em" aria-hidden="true">🎮</div><h3>Free to play</h3><p>Every game is free. Ads keep the lights on, and reward videos are always your choice.</p></div>
+    <div class="value"><div class="em" aria-hidden="true">👥</div><h3>Better together</h3><p>Play friends in the same room over Bluetooth or local Wi-Fi, no accounts or sign-up needed.</p></div>
+    <div class="value"><div class="em" aria-hidden="true">🔒</div><h3>Your data stays yours</h3><p>Progress lives on your device. Each app's privacy policy explains exactly what is collected.</p></div>
+  </div>
+
+  <div class="contact" id="contact">
+    <div>
+      <h2>Questions or feedback?</h2>
+      <p>Found a bug, have an idea, or need help with your data? We read every email.</p>
+    </div>
+    <a class="btn btn-brand" href="mailto:sheevigames@gmail.com">sheevigames@gmail.com</a>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div><h4>Shivi's Games</h4><p style="margin:0">Free mobile games for everyone.</p></div>
+    <div><h4><a href="boards/">Boards</a></h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div>
+    <div><h4><a href="rogue-altitude/">Rogue Altitude</a></h4><ul><li><a href="rogue-altitude-privacy.html">Privacy Policy</a></li><li><a href="rogue-altitude-terms.html">Terms of Use</a></li><li><a href="rogue-altitude-delete-data.html">Delete your data</a></li></ul></div>
+    <div><h4><a href="mindsprint/">MindSprint</a></h4><ul><li><a href="mindsprint-privacy.html">Privacy Policy</a></li><li><a href="mindsprint-terms.html">Terms of Use</a></li></ul></div>
+  </div>
+  <div class="copy">© 2026 Shivi's Games · <a href="mailto:sheevigames@gmail.com">sheevigames@gmail.com</a></div>
+</div></footer>
+
 </body>
 </html>
