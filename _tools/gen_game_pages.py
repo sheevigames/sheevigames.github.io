@@ -141,8 +141,8 @@ def page(slug, a):
 <link rel="icon" href="{FAVICON}">
 <meta property="og:title" content="{title_plain.replace("&","&amp;")}">
 <meta property="og:description" content="{a["meta"]}">
-<meta property="og:image" content="https://sheevigames.github.io/{a["icon"]}">
-<link rel="canonical" href="https://sheevigames.github.io/{slug}/">
+<meta property="og:image" content="https://shivisgames.com/{a["icon"]}">
+<link rel="canonical" href="https://shivisgames.com/{slug}/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
