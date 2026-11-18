@@ -56,9 +56,9 @@ h1,h2,h3{font-family:Fredoka,Nunito,sans-serif;line-height:1.15;margin:0}
 .btn-ghost{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.3)}
 .hero-icons{position:relative;height:300px}
 .hero-icons img{position:absolute;width:150px;height:150px;border-radius:34px;box-shadow:0 18px 40px rgba(10,8,40,.45);border:4px solid rgba(255,255,255,.9)}
-.hero-icons img:nth-child(1){left:6%;top:30px;transform:rotate(-8deg)}
-.hero-icons img:nth-child(2){left:42%;top:0;transform:rotate(6deg);z-index:2}
-.hero-icons img:nth-child(3){left:26%;top:140px;transform:rotate(-3deg);z-index:3}
+.hero-icons a:nth-child(1) img{left:6%;top:30px;transform:rotate(-8deg)}
+.hero-icons a:nth-child(2) img{left:42%;top:0;transform:rotate(6deg);z-index:2}
+.hero-icons a:nth-child(3) img{left:26%;top:140px;transform:rotate(-3deg);z-index:3}
 .hero-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.12) 1.5px,transparent 1.5px);background-size:22px 22px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 60%);mask-image:linear-gradient(90deg,transparent,#000 60%)}
 
 /* Sections */
@@ -117,7 +117,7 @@ footer a:hover{color:var(--text);text-decoration:underline}
   .hero .wrap{grid-template-columns:1fr;padding:48px 16px 40px}
   .hero-icons{height:200px;width:100%;max-width:340px}
   .hero-icons img{width:104px;height:104px;border-radius:24px}
-  .hero-icons img:nth-child(3){top:92px}
+  .hero-icons a:nth-child(3) img{top:92px}
   .values{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
@@ -198,3 +198,126 @@ footer a:hover{color:var(--text);text-decoration:underline}
   .shots.portrait img{width:180px;height:320px}
   .shots.landscape img{width:300px;height:169px}
 }
+
+/* ---------- Social links ---------- */
+.socials{display:flex;flex-wrap:wrap;gap:12px}
+.social{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--line);color:var(--text);text-decoration:none;font-weight:800;box-shadow:var(--shadow);transition:transform .2s,border-color .2s}
+.social:hover{transform:translateY(-3px);border-color:var(--gold)}
+.social svg,.foot-social svg{width:22px;height:22px;flex:none}
+.foot-social{display:flex;gap:10px;margin-top:14px}
+.foot-social a{display:inline-flex;width:40px;height:40px;border-radius:50%;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--line);color:var(--text);transition:transform .2s,border-color .2s}
+.foot-social a:hover{transform:translateY(-2px);border-color:var(--gold);text-decoration:none}
+.foot-social svg{width:18px;height:18px}
+.follow{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:28px 32px;box-shadow:var(--shadow)}
+.follow h2{font-size:28px}
+.follow p{color:var(--muted);margin:6px 0 18px}
+
+/* ---------- Videos ---------- */
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.vid{position:relative;aspect-ratio:9/16;border-radius:20px;overflow:hidden;background:#000;border:0;padding:0;cursor:pointer;box-shadow:var(--shadow);transition:transform .25s;font:inherit;color:inherit}
+.vid:hover{transform:translateY(-4px)}
+.vid img{width:100%;height:100%;object-fit:cover;transition:transform .4s,opacity .3s}
+.vid:hover img{transform:scale(1.05);opacity:.85}
+.vid .play-btn{position:absolute;inset:0;display:grid;place-items:center}
+.vid .play-btn span{width:64px;height:64px;border-radius:50%;background:rgba(255,0,0,.92);display:grid;place-items:center;box-shadow:0 6px 20px rgba(0,0,0,.4);transition:transform .2s}
+.vid:hover .play-btn span{transform:scale(1.12)}
+.vid .play-btn svg{width:26px;height:26px;margin-left:4px}
+.vid .cap{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 14px;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#fff;font-weight:800;font-size:14px;line-height:1.3;text-align:left}
+.vid iframe{width:100%;height:100%;border:0;display:block}
+.vids-more{margin-top:18px}
+@media (max-width:600px){
+  .vids{grid-template-columns:repeat(2,1fr);gap:10px}
+  .vid .play-btn span{width:50px;height:50px}
+  .vid .cap{font-size:12px;padding:28px 10px 10px}
+  .follow{padding:24px 20px}
+}
+
+/* ---------- Animations ---------- */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+.hero-icons img{animation:float 6s ease-in-out infinite}
+.hero-icons a:nth-child(1) img{--r:-8deg}
+.hero-icons a:nth-child(2) img{--r:6deg;animation-delay:-2s}
+.hero-icons a:nth-child(3) img{--r:-3deg;animation-delay:-4s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-14px) rotate(var(--r,0deg))}}
+.ghero .g-icon{animation:bob 4.5s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-dots{animation:drift 30s linear infinite}
+@keyframes drift{to{background-position:220px 220px}}
+.hero h1 span{background:linear-gradient(90deg,#F5C66B,#FFE7A3,#F5C66B);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+@keyframes shine{to{background-position:-200% 0}}
+.app,.feature,.item,.other,.legal-card,.value{transition:transform .25s,box-shadow .25s,border-color .2s}
+.app:hover,.feature:hover,.item:hover,.other:hover,.legal-card:hover,.value:hover{transform:translateY(-4px)}
+.play{position:relative;overflow:hidden;transition:transform .2s}
+.play:hover{transform:translateY(-2px)}
+.play::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);animation:sweep 3.5s ease-in-out infinite}
+@keyframes sweep{0%,60%{left:-60%}100%{left:130%}}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .hero-icons img,.ghero .g-icon,.hero-dots,.hero h1 span,.play::after{animation:none}
+  .hero-icons img{transform:rotate(var(--r,0deg))}
+  .app:hover,.feature:hover,.item:hover,.other:hover,.legal-card:hover,.value:hover,.social:hover,.vid:hover,.play:hover{transform:none}
+}
+
+/* ---------- Apple-style scroll animations ---------- */
+:root{--ease:cubic-bezier(.2,.8,.2,1)}
+.reveal{transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease);filter:blur(6px)}
+.reveal.in{filter:none}
+/* staggered children */
+.stagger>*{opacity:0;transform:translateY(28px) scale(.98);filter:blur(6px);transition:opacity .8s var(--ease),transform .8s var(--ease),filter .8s var(--ease);transition-delay:calc(var(--i,0)*70ms)}
+.stagger.in>*{opacity:1;transform:none;filter:none}
+.reveal.stagger{opacity:1;transform:none;filter:none}
+/* hero parallax (driven by --p from site.js, 0 at top, 1 when hero scrolled away) */
+.hero .wrap>div:first-child,.ghero .wrap>div:last-child{transform:translateY(calc(var(--p,0)*60px)) scale(calc(1 - var(--p,0)*.06));opacity:calc(1 - var(--p,0)*1.1);will-change:transform,opacity}
+.hero-icons{transform:translateY(calc(var(--p,0)*-40px))}
+.hero-icons a:nth-child(1) img{translate:0 calc(var(--p,0)*90px)}
+.hero-icons a:nth-child(2) img{translate:0 calc(var(--p,0)*-60px)}
+.hero-icons a:nth-child(3) img{translate:0 calc(var(--p,0)*140px)}
+.ghero .g-icon{translate:0 calc(var(--p,0)*70px);scale:calc(1 + var(--p,0)*.08)}
+/* game icon pop-in on load */
+.ghero .g-icon{animation:popin 1s var(--ease) both,bob 4.5s ease-in-out 1s infinite}
+@keyframes popin{from{opacity:0;transform:scale(.6) rotate(-12deg)}to{opacity:1;transform:none}}
+.hero h1,.ghero h1{animation:rise 1s var(--ease) both}
+.hero p,.ghero p,.ghero .g-sub{animation:rise 1s var(--ease) .12s both}
+.hero-actions,.g-actions,.facts{animation:rise 1s var(--ease) .24s both}
+@keyframes rise{from{opacity:0;transform:translateY(24px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+
+/* scroll-lit statement */
+.statement{position:relative;height:220vh}
+.statement .sticky{position:sticky;top:0;height:100vh;display:grid;place-items:center;overflow:hidden}
+.statement p{font:700 clamp(34px,6.2vw,76px)/1.12 Fredoka,Nunito,sans-serif;letter-spacing:-.01em;max-width:1000px;margin:0;padding:0 20px;text-align:center}
+.statement .w{opacity:.14;transition:opacity .35s ease,color .35s ease}
+.statement .w.on{opacity:1}
+.statement .w.hl.on{background:linear-gradient(90deg,#5C6BD6,#B04FD6,#F5A623);-webkit-background-clip:text;background-clip:text;color:transparent}
+.statement .glow{position:absolute;width:60vmax;height:60vmax;border-radius:50%;background:radial-gradient(circle,rgba(106,63,176,.22),transparent 60%);transform:scale(calc(.6 + var(--sp,0)*.8));opacity:calc(.3 + var(--sp,0)*.7);pointer-events:none}
+
+/* 3D screenshots */
+.shots{perspective:1200px}
+.shots img{transform:rotateX(18deg) translateY(40px) scale(.94);opacity:0;transition:transform 1s var(--ease),opacity 1s var(--ease);transition-delay:calc(var(--i,0)*60ms)}
+.shots.in img{transform:none;opacity:1}
+
+@media (prefers-reduced-motion:reduce){
+  .stagger>*,.shots img{opacity:1;transform:none;filter:none;transition:none}
+  .reveal{filter:none}
+  .hero .wrap>div:first-child,.ghero .wrap>div:last-child,.hero-icons,.hero-icons img,.ghero .g-icon{transform:none;translate:none;scale:none;opacity:1}
+  .hero h1,.ghero h1,.hero p,.ghero p,.ghero .g-sub,.hero-actions,.g-actions,.facts,.ghero .g-icon{animation:none}
+  .statement{height:auto}.statement .sticky{position:static;height:auto;padding:80px 0}
+  .statement .w{opacity:1}.statement .glow{display:none}
+}
+
+/* clickable game icons */
+.hero-icons a{display:block}
+.hero-icons a img{transition:box-shadow .3s,border-color .3s,filter .3s}
+.hero-icons a:hover img,.hero-icons a:focus-visible img{box-shadow:0 22px 50px rgba(10,8,40,.6),0 0 0 4px #F5C66B;filter:brightness(1.06)}
+.hero-icons a:hover img{z-index:5}
+.app-icon-link{display:block;align-self:start;border-radius:30px;transition:transform .3s var(--ease)}
+.app-icon-link:hover,.app-icon-link:focus-visible{transform:scale(1.06) rotate(-3deg)}
+.app-icon-link:focus-visible,.hero-icons a:focus-visible{outline:3px solid #F5C66B;outline-offset:4px;border-radius:30px}
+@media (prefers-reduced-motion:reduce){.app-icon-link:hover{transform:none}}
+
+/* ---------- Comfortable tap targets (24px+) ---------- */
+.legal-links a,.app-link{display:inline-flex;align-items:center;min-height:32px;padding:2px 0}
+footer li a{display:inline-flex;align-items:center;min-height:32px}
+footer h4 a{display:inline-flex;align-items:center;min-height:32px}
+.crumbs a{display:inline-flex;align-items:center;min-height:28px}
+.copy a{display:inline-flex;align-items:center;min-height:28px}

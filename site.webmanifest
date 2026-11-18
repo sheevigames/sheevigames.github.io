@@ -1,0 +1,13 @@
+{
+  "name": "Shivi's Games",
+  "short_name": "Shivi's Games",
+  "description": "Free mobile games: Boards, Rogue Altitude and MindSprint.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#10122A",
+  "theme_color": "#3D4CAE",
+  "icons": [
+    { "src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
