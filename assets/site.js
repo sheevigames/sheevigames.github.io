@@ -1,4 +1,4 @@
-/* Shivi's Games – shared page behaviour: Apple-style scroll animations and tap-to-play YouTube videos. */
+/* Shivi Games – shared page behaviour: Apple-style scroll animations and tap-to-play YouTube videos. */
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -89,4 +89,51 @@
       b.replaceWith(holder);
     }, { once: true });
   });
+})();
+
+/* ---------- Google Analytics, only after the visitor accepts cookies ---------- */
+(function () {
+  var GA_ID = 'G-FV42LY3TEY';
+  var KEY = 'sg-consent';
+  function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  function loadGA() {
+    if (window.__gaLoaded) return; window.__gaLoaded = true;
+    var s = document.createElement('script');
+    s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', GA_ID, { anonymize_ip: true });
+    // Count Google Play, notify and social clicks as named events
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a) return;
+      var h = a.href;
+      var kind = /play\.google\.com/.test(h) ? 'play_store_click'
+        : /docs\.google\.com\/forms/.test(h) ? 'notify_signup_click'
+        : /youtube\.com|instagram\.com|x\.com/.test(h) ? 'social_click'
+        : /press-kit\.zip$/.test(h) ? 'press_kit_download' : null;
+      if (kind) gtag('event', kind, { link_url: h, page_path: location.pathname });
+    }, true);
+  }
+  var choice = get();
+  if (choice === 'yes') { loadGA(); return; }
+  if (choice === 'no') return;
+  var bar = document.createElement('div');
+  bar.className = 'cookie-bar';
+  bar.setAttribute('role', 'dialog');
+  bar.setAttribute('aria-label', 'Cookie choice');
+  bar.innerHTML = '<p>🍪 We use Google Analytics cookies to see how many people visit and which games they like. <a href="/website-privacy.html">Learn more</a></p>' +
+    '<div class="cookie-actions"><button type="button" class="btn btn-ghost-dark" data-c="no">Decline</button><button type="button" class="btn btn-brand" data-c="yes">Accept</button></div>';
+  bar.addEventListener('click', function (e) {
+    var c = e.target.getAttribute && e.target.getAttribute('data-c');
+    if (!c) return;
+    set(c); bar.classList.add('hide');
+    setTimeout(function () { bar.remove(); }, 400);
+    if (c === 'yes') loadGA();
+  });
+  document.body.appendChild(bar);
+  requestAnimationFrame(function () { bar.classList.add('show'); });
 })();

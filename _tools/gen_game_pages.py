@@ -131,14 +131,14 @@ def app_ld(slug, a):
          "operatingSystem": "ANDROID", "applicationCategory": "GameApplication",
          "url": f"https://shivisgames.com/{slug}/", "image": f"https://shivisgames.com/{a['icon']}",
          "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
-         "publisher": {"@type": "Organization", "name": "Shivi's Games", "url": "https://shivisgames.com/"}}
+         "publisher": {"@type": "Organization", "name": "Shivi Games", "url": "https://shivisgames.com/"}}
     if a['play']:
         d["downloadUrl"] = a['play']; d["installUrl"] = a['play']
     return _j.dumps(d)
 
 def header():
     return '''<header class="top"><div class="wrap">
-  <a class="logo" href="../" aria-label="Shivi's Games home"><span class="logo-mark" aria-hidden="true">S</span>Shivi's Games</a>
+  <a class="logo" href="../" aria-label="Shivi Games home"><img class="logo-img" src="../assets/icons/logo-96.webp" alt="" width="34" height="34">Shivi Games</a>
   <nav aria-label="Main">
     <a href="../#games">Games</a>
     <a class="hide-sm" href="#legal">Privacy &amp; terms</a>
@@ -149,18 +149,23 @@ def header():
 def footer():
     return '''<footer><div class="wrap">
   <div class="foot-grid">
-    <div><h4>Shivi's Games</h4><p style="margin:0">Free mobile games for everyone.</p>''' + foot_social() + '''</div>
+    <div><h4>Shivi Games</h4><p style="margin:0">Free mobile games for everyone.</p><ul><li><a href="../press/">Press kit</a></li><li><a href="../website-privacy.html">Website privacy</a></li></ul>''' + foot_social() + '''</div>
     <div><h4><a href="../boards/">Boards</a></h4><ul><li><a href="../privacy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li></ul></div>
     <div><h4><a href="../rogue-altitude/">Rogue Altitude</a></h4><ul><li><a href="../rogue-altitude-privacy.html">Privacy Policy</a></li><li><a href="../rogue-altitude-terms.html">Terms of Use</a></li><li><a href="../rogue-altitude-delete-data.html">Delete your data</a></li></ul></div>
     <div><h4><a href="../mindsprint/">MindSprint</a></h4><ul><li><a href="../mindsprint-privacy.html">Privacy Policy</a></li><li><a href="../mindsprint-terms.html">Terms of Use</a></li></ul></div>
   </div>
-  <div class="copy">© 2026 Shivi's Games · <a href="mailto:sheevigames@gmail.com">sheevigames@gmail.com</a></div>
+  <div class="copy">© 2026 Shivi Games · <a href="mailto:sheevigames@gmail.com">sheevigames@gmail.com</a></div>
 </div></footer>'''
+
+NOTIFY = {'rogue': 'https://docs.google.com/forms/d/e/1FAIpQLSernqcbTf-pWg8C9GBaFFRgnRoxBcFSFBVP7VU9N30g2vqWBQ/viewform?usp=pp_url&entry.2082480360=Rogue+Altitude+%28jetpack+arena+battles%29', 'mind': 'https://docs.google.com/forms/d/e/1FAIpQLSernqcbTf-pWg8C9GBaFFRgnRoxBcFSFBVP7VU9N30g2vqWBQ/viewform?usp=pp_url&entry.2082480360=MindSprint+%28focus+%26+memory+puzzles%29'}
 
 def play_button(a):
     if a['play']:
-        return f'<a class="play" href="{a["play"]}" rel="noopener">{PLAY_SVG}<span><small>GET IT ON</small>Google Play</span></a>'
-    return '<span class="soon">Coming soon to Google Play</span>'
+        ref = '&referrer=utm_source%3Dshivisgames.com%26utm_medium%3Dwebsite%26utm_content%3D' + a['cls']
+        return f'<a class="play" href="{a["play"]}{ref}" rel="noopener">{PLAY_SVG}<span><small>GET IT ON</small>Google Play</span></a>'
+    notify = NOTIFY.get(a['cls'])
+    btn = f'<a class="btn btn-gold notify" href="{notify}" target="_blank" rel="noopener">🔔 Notify me at launch</a>' if notify else ''
+    return '<span class="soon">Coming soon to Google Play</span>' + btn
 
 def page(slug, a):
     orient, n, alt = a['shots']
@@ -185,11 +190,11 @@ def page(slug, a):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title_plain.replace("&","&amp;")} – Shivi's Games</title>
+<title>{title_plain.replace("&","&amp;")} – Shivi Games</title>
 <meta name="description" content="{a["meta"]}">
-<link rel="icon" href="{FAVICON}">
+<link rel="icon" href="/favicon.ico" sizes="any">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Shivi's Games">
+<meta property="og:site_name" content="Shivi Games">
 <meta property="og:url" content="https://shivisgames.com/{slug}/">
 <meta property="og:title" content="{title_plain.replace("&","&amp;")}">
 <meta property="og:description" content="{a["meta"]}">
@@ -220,7 +225,7 @@ def page(slug, a):
   <div class="wrap">
     <img class="g-icon" src="../{webp(a["icon"])}" alt="{a["name"]} app icon" width="148" height="148">
     <div>
-      <div class="crumbs"><a href="../">Shivi's Games</a> › <a href="../#games">Games</a></div>
+      <div class="crumbs"><a href="../">Shivi Games</a> › <a href="../#games">Games</a></div>
       <h1>{a["name"]}</h1>
       <div class="g-sub">{a["sub"]}</div>
       <p>{a["tagline"]}</p>
@@ -251,7 +256,7 @@ def page(slug, a):
 </div></section>
 
 <section class="block"><div class="wrap">
-  <div class="section-head reveal"><h2>More from Shivi's Games</h2></div>
+  <div class="section-head reveal"><h2>More from Shivi Games</h2></div>
   <div class="others">{others}</div>
 </div></section>
 </main>

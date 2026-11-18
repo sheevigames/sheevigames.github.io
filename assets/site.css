@@ -321,3 +321,50 @@ footer li a{display:inline-flex;align-items:center;min-height:32px}
 footer h4 a{display:inline-flex;align-items:center;min-height:32px}
 .crumbs a{display:inline-flex;align-items:center;min-height:28px}
 .copy a{display:inline-flex;align-items:center;min-height:28px}
+
+/* ---------- Press kit ---------- */
+.facts-table{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.facts-table>div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.facts-table span{display:block;color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.facts-table strong{font-size:16px}
+.logos{display:flex;flex-wrap:wrap;gap:14px}
+.logo-tile{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 18px;text-decoration:none;color:var(--text);font-weight:800;transition:transform .2s,border-color .2s}
+.logo-tile:hover{transform:translateY(-3px);border-color:var(--gold)}
+.logo-tile img{border-radius:22px}
+.press-games{display:grid;gap:22px}
+.press-game{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:var(--shadow);scroll-margin-top:80px}
+.pg-head{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-bottom:8px}
+.pg-head img{border-radius:22px;box-shadow:0 8px 20px rgba(28,31,58,.18)}
+.pg-head h3{font-size:28px}
+.pg-sub{color:var(--muted);font-weight:800}
+.pg-actions{margin-left:auto;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.press-game h4{margin:18px 0 6px;font:600 17px Fredoka,sans-serif}
+.press-game .hint{color:var(--muted);font:600 13px Nunito,sans-serif}
+.copyable{background:var(--surface-2);border-radius:12px;padding:12px 14px;margin:0;color:var(--text)}
+.pg-feats{margin:0;padding-left:20px;color:var(--text)}
+.pg-feats li{margin:3px 0}
+.press-shots{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px}
+.press-shots img{flex:none;border-radius:14px;border:1px solid var(--line);object-fit:cover}
+.press-shots.portrait img{width:120px;height:213px}
+.press-shots.landscape img{width:256px;height:144px}
+.pg-dl{margin:14px 0 0;font-weight:800}
+.pg-dl a{display:inline-flex;align-items:center;min-height:32px}
+@media (max-width:600px){.pg-actions{margin-left:0}.press-game{padding:20px}}
+
+/* notify me button */
+.btn.notify{padding:10px 16px;font-size:15px;box-shadow:0 4px 0 #C9962E}
+.btn.notify:hover{transform:translateY(-2px)}
+.app-foot .btn.notify{order:0}
+
+/* ---------- Cookie banner ---------- */
+.cookie-bar{position:fixed;left:16px;right:16px;bottom:16px;z-index:50;max-width:720px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:18px;padding:14px 18px;box-shadow:0 12px 40px rgba(0,0,0,.25);transform:translateY(140%);transition:transform .5s var(--ease,ease)}
+.cookie-bar.show{transform:none}
+.cookie-bar.hide{transform:translateY(140%)}
+.cookie-bar p{margin:0;flex:1 1 300px;font-size:15px}
+.cookie-actions{display:flex;gap:10px}
+.cookie-bar .btn{padding:10px 18px;font-size:15px}
+.btn-ghost-dark{background:var(--surface-2);color:var(--text);border:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){.cookie-bar{transition:none}}
+
+/* real studio logo in header */
+.logo-img{width:34px;height:34px;border-radius:10px;object-fit:cover;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 2px 8px rgba(80,60,200,.35)}
