@@ -1,4 +1,4 @@
-# Builds boards/, rogue-altitude/ and mindsprint/ index.html. Run from the repo root:
+# Builds boards/, rogue-altitude/, mindsprint/ and games/ index.html. Run from the repo root:
 #   python3 _tools/gen_game_pages.py .
 
 import os, sys
@@ -17,6 +17,10 @@ SOCIAL = [
 ]
 PLAY_ICON = '<svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6 4v16l14-8z"/></svg>'
 
+
+# Alt text for the social share images in assets/og/
+OG_ALT = {'home': 'Shivi Games logo with the Boards, Rogue Altitude and MindSprint app icons', 'boards': 'Boards app icon with the text Boards: Chess, Ludo &amp; Sudoku. Free, 9 games, Bluetooth multiplayer', 'rogue-altitude': 'Rogue Altitude app icon showing two jetpack pilots clashing, with the text Jetpack Arena', 'mindsprint': 'MindSprint app icon with the text MindSprint: Focus &amp; Memory. Free, 7 brain games'}
+
 def foot_social():
     return '<div class="foot-social">' + ''.join(f'<a href="{u}" rel="noopener" aria-label="{n}">{i}</a>' for n,u,i in SOCIAL) + '</div>'
 
@@ -31,7 +35,7 @@ APPS = {
  'boards': dict(
    cls='boards', page='page-boards', name='Boards', sub='Chess, Ludo &amp; Sudoku', icon='icon.png',
    play='https://play.google.com/store/apps/details?id=com.shivi.boards',
-   meta='Boards: Chess, Ludo &amp; Sudoku. Classic board games and word puzzles in one free app: play the computer, pass one phone around, or play friends nearby over Bluetooth.',
+   meta='Classic board games and word puzzles in one free app. Play the computer, pass one phone around, or play friends nearby over Bluetooth.',
    tagline='Classic board games and word puzzles in one free app. Play the computer at your level, pass one phone around, or connect with friends nearby over Bluetooth, no internet needed.',
    facts=['🆓 Free','🧩 9 games','📶 Bluetooth multiplayer','🗓️ Daily Challenge','🌍 7 languages'],
    shots=('portrait',7,'Boards screenshot'),
@@ -68,7 +72,7 @@ APPS = {
  'rogue-altitude': dict(
    cls='rogue', page='page-rogue', name='Rogue Altitude', sub='Jetpack Arena', icon='rogue-altitude-icon-256.png',
    play=None,
-   meta='Rogue Altitude: Jetpack Arena. Anime-style jetpack battles: train against bots, then fight friends over Bluetooth or local Wi-Fi.',
+   meta='Free anime-style jetpack battles. Train against bots, then fight friends nearby over Bluetooth or local Wi-Fi.',
    tagline='Strap on a jetpack and take the fight skyward. Train against up to ten bots, then battle friends in the same room over Bluetooth or local Wi-Fi.',
    facts=['🆓 Free','🧑‍✈️ 12 pilots','🗺️ 9 arenas','🤖 Up to 10 bots','📶 Bluetooth &amp; LAN'],
    shots=('landscape',6,'Rogue Altitude screenshot'),
@@ -99,7 +103,7 @@ APPS = {
  'mindsprint': dict(
    cls='mind', page='page-mind', name='MindSprint', sub='Focus &amp; Memory', icon='mindsprint-icon.png',
    play=None,
-   meta='MindSprint: Focus &amp; Memory. Seven quick brain games in one free app, with hundreds of levels and a Daily Challenge.',
+   meta='Train focus and memory with seven quick brain games in one free app, with hundreds of levels and a Daily Challenge.',
    tagline='Seven quick brain games in one free app. Sort, connect, plan and remember your way through hundreds of levels, with a Daily Challenge that grows with you.',
    facts=['🆓 Free','🧠 7 brain games','✈️ Play offline','🗓️ Daily challenges'],
    shots=('portrait',8,'MindSprint screenshot'),
@@ -228,6 +232,8 @@ def page(slug, a):
 <meta property="og:image" content="https://shivisgames.com/assets/og/{slug}.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{OG_ALT[slug]}">
+<meta name="twitter:image:alt" content="{OG_ALT[slug]}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@shivisgames">
 <meta name="twitter:image" content="https://shivisgames.com/assets/og/{slug}.jpg">
@@ -312,3 +318,140 @@ for slug, a in APPS.items():
     with open(os.path.join(ROOT, slug, 'index.html'), 'w') as f:
         f.write(new_tab(page(slug, a)))
     print('wrote', slug)
+
+# ---------- Games showcase page: games/index.html ----------
+# Latest YouTube Shorts for the showcase wall: (video ID, caption, game slug). Newest first.
+SHORTS = [
+  ('FCGm19fqqvY', 'My worst carrom shots 😂 Rate my skills 1-10', 'boards'),
+  ('OdEuxOeR_Ew', 'All 4 checkmates revealed! How many did you find? ♟️', 'boards'),
+  ('b3TxAGTaSeI', '4 ways to checkmate here. Can you find 1? ♟️', 'boards'),
+  ('tP04OVhSkeI', 'Can you pocket all 9? 🎯 Carrom vs Computer', 'boards'),
+  ('S-L8euxKgVk', 'Can you find mate in 1? ♟️ Level 3 vs Computer', 'boards'),
+  ('zBaGysvKhB8', 'Chess, Ludo, Carrom &amp; Sudoku in ONE app 🎮', 'boards'),
+  ('pa7NUEx0em8', 'Can you beat Level 4? 🤯 Sling Puck', 'boards'),
+  ('Rq7iGxnjtNY', 'Multiple games in ONE app 🔥', 'boards'),
+]
+SHOWCASE_SHOTS = {'portrait': 5, 'landscape': 3}  # how many screenshots each game shows on the showcase
+
+def showcase_play(a):
+    if a['play']:
+        ref = '&referrer=utm_source%3Dshivisgames.com%26utm_medium%3Dwebsite%26utm_content%3Dgames'
+        return f'<a class="play" href="{a["play"]}{ref}" rel="noopener">{PLAY_SVG}<span><small>GET IT ON</small>Google Play</span></a>'
+    return play_button(a)
+
+def showcase_game(slug, a):
+    orient, n, alt = a['shots']
+    alts = a.get('shot_alts') or [f'{alt} {i}' for i in range(1, n+1)]
+    w, h = ('540', '960') if orient == 'portrait' else ('960', '540')
+    k = min(n, SHOWCASE_SHOTS[orient])
+    shots = ''.join(f'<img src="../{slug}/img/shot-{i}.webp" alt="{alts[i-1]}" loading="lazy" width="{w}" height="{h}">' for i in range(1, k+1))
+    facts = ''.join(f'<li>{f}</li>' for f in a['facts'])
+    shorts = [(v, t) for v, t, g in SHORTS if g == slug][:4]
+    vids = '' if not shorts else f'<h3 class="sc-sub">Watch {a["name"]} Shorts</h3><div class="vids sc-vids">{video_cards(shorts)}</div>'
+    vid_link = f'<a class="app-link" href="#shorts">▶ Shorts</a>' if shorts else ''
+    return f'''<article class="sc-game {a["cls"]}" id="{slug}">
+    <div class="sc-head">
+      <a class="app-icon-link" href="../{slug}/" aria-label="{a["name"]} game page"><img class="app-icon" src="../{webp(a["icon"])}" alt="{a["name"]} app icon" width="128" height="128" loading="lazy"></a>
+      <div>
+        <h2><a href="../{slug}/">{a["name"]}</a></h2>
+        <div class="sub">{a["sub"]}</div>
+        <p class="desc">{a["tagline"]}</p>
+        <ul class="chips" aria-label="{a["name"]} quick facts">{facts}</ul>
+        <div class="app-foot">{showcase_play(a)}<div class="legal-links"><a class="app-link" href="../{slug}/">Full game page →</a>{vid_link}</div></div>
+      </div>
+    </div>
+    <div class="shots {orient}" tabindex="0" aria-label="{a["name"]} screenshots">{shots}</div>
+    {vids}
+  </article>'''
+
+def showcase():
+    import json as _j
+    games = '\n  '.join(showcase_game(s, a) for s, a in APPS.items())
+    jump = ''.join(f'<li><a href="#{s}"><img src="../{webp(a["icon"])}" alt="" width="28" height="28">{a["name"]}</a></li>' for s, a in APPS.items())
+    in_cards = {v for s in APPS for v, t, g in [x for x in SHORTS if x[2] == s][:4]}
+    wall = video_cards([(v, t) for v, t, g in SHORTS if v not in in_cards])  # skip Shorts already shown in a game card
+    ld = _j.dumps({"@context": "https://schema.org", "@type": "ItemList", "name": "Shivi Games",
+        "itemListElement": [{"@type": "ListItem", "position": i+1, "url": f"https://shivisgames.com/{s}/", "name": a['name']} for i, (s, a) in enumerate(APPS.items())]})
+    desc = 'All Shivi Games in one place: screenshots, YouTube Shorts and download links for Boards, Rogue Altitude and MindSprint.'
+    return f'''<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our games: screenshots &amp; Shorts – Shivi Games</title>
+<meta name="description" content="{desc}">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Shivi Games">
+<meta property="og:url" content="https://shivisgames.com/games/">
+<meta property="og:title" content="Our games – Shivi Games">
+<meta property="og:description" content="{desc}">
+<meta property="og:image" content="https://shivisgames.com/assets/og/home.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{OG_ALT['home']}">
+<meta name="twitter:image:alt" content="{OG_ALT['home']}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@shivisgames">
+<meta name="twitter:image" content="https://shivisgames.com/assets/og/home.jpg">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/favicon-192.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/favicon-48.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#3D4CAE">
+<script type="application/ld+json">{ld}</script>
+<link rel="canonical" href="https://shivisgames.com/games/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="page-games">
+
+<header class="top"><div class="wrap">
+  <a class="logo" href="../" aria-label="Shivi Games home"><img class="logo-img" src="../assets/icons/logo-96.webp" alt="" width="34" height="34">Shivi Games</a>
+  <nav aria-label="Main">
+    <a href="#games">Games</a>
+    <a class="hide-sm" href="#shorts">Shorts</a>
+    <a href="../#contact">Contact</a>
+  </nav>
+</div></header>
+
+<main>
+<section class="ghero all">
+  <div class="hero-dots" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <div class="crumbs"><a href="../">Shivi Games</a> › Games</div>
+      <h1>Our games</h1>
+      <div class="g-sub">Screenshots, Shorts &amp; where to play</div>
+      <p>Every Shivi Games title in one place. Flip through the screenshots, watch a quick Short, then grab the game on Google Play or get a ping when it launches.</p>
+      <ul class="sc-jump" aria-label="Jump to a game">{jump}<li><a href="#shorts">▶ Latest Shorts</a></li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="games" style="scroll-margin-top:80px"><div class="wrap">
+  {games}
+</div></section>
+
+<section class="block" id="shorts" style="scroll-margin-top:80px"><div class="wrap">
+  <div class="section-head reveal"><h2>Latest Shorts</h2><p>Fresh gameplay clips from our YouTube channel. Tap a video to play.</p></div>
+  <div class="vids">{wall}</div>
+  <p class="vids-more reveal"><a class="btn btn-brand" href="https://www.youtube.com/@shivisgames/shorts" rel="noopener">All Shorts on YouTube →</a></p>
+</div></section>
+</main>
+
+{footer()}
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>
+'''
+
+os.makedirs(os.path.join(ROOT, 'games'), exist_ok=True)
+with open(os.path.join(ROOT, 'games', 'index.html'), 'w') as f:
+    f.write(new_tab(showcase()))
+print('wrote games')
