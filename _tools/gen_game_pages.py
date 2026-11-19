@@ -35,6 +35,7 @@ APPS = {
    tagline='Classic board games and word puzzles in one free app. Play the computer at your level, pass one phone around, or connect with friends nearby over Bluetooth, no internet needed.',
    facts=['🆓 Free','🧩 9 games','📶 Bluetooth multiplayer','🗓️ Daily Challenge','🌍 7 languages'],
    shots=('portrait',7,'Boards screenshot'),
+   shot_alts=['Boards app with Chess, Ludo and Sudoku: classic games all in one app', 'Chess against the computer, with levels, a game clock and learn mode', 'Ludo board for 2 to 6 players, against friends or the computer', 'Sudoku puzzle with notes, hints and best times', 'Guess the Word, one of four word games in Boards', 'Snakes and Ladders for up to 4 players on one phone', 'Sling Puck played with friends nearby over Bluetooth, no internet needed'],
    features=[
      ('🤖','Beat the computer','Computer opponents with levels to climb in Chess, Checkers, Carrom, Ludo and Sling Puck.'),
      ('📶','Play friends nearby','Connect phones over Bluetooth for Chess, Checkers, Carrom, Ludo, Snakes &amp; Ladders and Sling Puck.'),
@@ -70,6 +71,7 @@ APPS = {
    tagline='Strap on a jetpack and take the fight skyward. Train against up to ten bots, then battle friends in the same room over Bluetooth or local Wi-Fi.',
    facts=['🆓 Free','🧑‍✈️ 12 pilots','🗺️ 9 arenas','🤖 Up to 10 bots','📶 Bluetooth &amp; LAN'],
    shots=('landscape',6,'Rogue Altitude screenshot'),
+   shot_alts=['Rogue Altitude jetpack combat over a moonlit city', 'Battle with rifles, bows, shotguns and grenades at sunset', 'Local multiplayer jetpack battle with friends over Bluetooth or LAN', 'Choose your pilot and weapon from the loadout screen', 'Pick one of nine arenas, each with its own cover and high ground', 'Career ranks, daily contracts and cosmetic rewards'],
    features=[
      ('🚀','Jetpack combat','Boost, aim and dodge in fast arena fights with health, fuel and respawns.'),
      ('🎯','Train against bots','Pick from zero to ten bots and practise before you face real players.'),
@@ -99,6 +101,7 @@ APPS = {
    tagline='Seven quick brain games in one free app. Sort, connect, plan and remember your way through hundreds of levels, with a Daily Challenge that grows with you.',
    facts=['🆓 Free','🧠 7 brain games','✈️ Play offline','🗓️ Daily challenges'],
    shots=('portrait',8,'MindSprint screenshot'),
+   shot_alts=['MindSprint: seven brain games in one app', 'Water Sort: pour and sort the colours into tubes', 'Pipe Path: connect the numbers in order and fill every box', 'Garden Grid: plant the perfect garden logic puzzle', 'Memory Lanterns: watch the lights and repeat the pattern', 'Arrow Drift: clear the board arrow by arrow', 'Rider Rush: get every rider on board before the clock runs out', 'Hive Fill: drag and drop pieces to fit every space in the hive'],
    features=[
      ('🧠','Train your brain','Puzzles for focus, logic, planning and memory, a few minutes at a time.'),
      ('📈','Hundreds of levels','Levels unlock in order and get harder as you go. Replay any of them.'),
@@ -154,7 +157,7 @@ def footer():
     <div><h4><a href="../rogue-altitude/">Rogue Altitude</a></h4><ul><li><a href="../rogue-altitude-privacy.html">Privacy Policy</a></li><li><a href="../rogue-altitude-terms.html">Terms of Use</a></li><li><a href="../rogue-altitude-delete-data.html">Delete your data</a></li></ul></div>
     <div><h4><a href="../mindsprint/">MindSprint</a></h4><ul><li><a href="../mindsprint-privacy.html">Privacy Policy</a></li><li><a href="../mindsprint-terms.html">Terms of Use</a></li></ul></div>
   </div>
-  <div class="copy">© 2026 Shivi Games · <a href="mailto:sheevigames@gmail.com">sheevigames@gmail.com</a></div>
+  <div class="copy">© 2026 Shivi Games · <a href="mailto:hello@shivisgames.com">hello@shivisgames.com</a></div>
 </div></footer>'''
 
 NOTIFY = {'rogue': 'https://docs.google.com/forms/d/e/1FAIpQLSernqcbTf-pWg8C9GBaFFRgnRoxBcFSFBVP7VU9N30g2vqWBQ/viewform?usp=pp_url&entry.2082480360=Rogue+Altitude+%28jetpack+arena+battles%29', 'mind': 'https://docs.google.com/forms/d/e/1FAIpQLSernqcbTf-pWg8C9GBaFFRgnRoxBcFSFBVP7VU9N30g2vqWBQ/viewform?usp=pp_url&entry.2082480360=MindSprint+%28focus+%26+memory+puzzles%29'}
@@ -169,11 +172,12 @@ def play_button(a):
 
 def page(slug, a):
     orient, n, alt = a['shots']
-    shots = ''.join(f'<img src="img/shot-{i}.webp" alt="{alt} {i}" loading="lazy" width="{"540" if orient=="portrait" else "960"}" height="{"960" if orient=="portrait" else "540"}">' for i in range(1, n+1))
+    alts = a.get('shot_alts') or [f'{alt} {i}' for i in range(1, n+1)]
+    shots = ''.join(f'<img src="img/shot-{i}.webp" alt="{alts[i-1]}" loading="lazy" width="{"540" if orient=="portrait" else "960"}" height="{"960" if orient=="portrait" else "540"}">' for i in range(1, n+1))
     feats = ''.join(f'<div class="feature"><div class="em" aria-hidden="true">{e}</div><h3>{t}</h3><p>{d}</p></div>' for e,t,d in a['features'])
     items = ''.join(f'<div class="item"><div class="em" aria-hidden="true">{e}</div><div><h3>{t}</h3><p>{d}</p></div></div>' for e,t,d in a['items'])
     legal = ''.join(f'<a class="legal-card" href="../{h}"><strong>{t}</strong><span>{d}</span></a>' for h,t,d in a['legal'])
-    legal += '<a class="legal-card" href="mailto:sheevigames@gmail.com"><strong>Contact support</strong><span>sheevigames@gmail.com</span></a>'
+    legal += '<a class="legal-card" href="mailto:hello@shivisgames.com"><strong>Contact support</strong><span>hello@shivisgames.com</span></a>'
     others = ''.join(f'<a class="other" href="../{s}/"><img src="../{webp(o["icon"])}" alt="" width="72" height="72" loading="lazy"><div><strong>{o["name"]}</strong><span>{o["sub"]}</span></div></a>' for s,o in APPS.items() if s != slug)
     facts = ''.join(f'<li>{f}</li>' for f in a['facts'])
     title_plain = f'{a["name"]}: {a["sub"]}'.replace('&amp;','&')

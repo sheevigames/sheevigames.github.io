@@ -233,7 +233,7 @@ footer a:hover{color:var(--text);text-decoration:underline}
 }
 
 /* ---------- Animations ---------- */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
 .reveal.in{opacity:1;transform:none}
 .hero-icons img{animation:float 6s ease-in-out infinite}
 .hero-icons a:nth-child(1) img{--r:-8deg}
@@ -253,7 +253,7 @@ footer a:hover{color:var(--text);text-decoration:underline}
 .play::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);animation:sweep 3.5s ease-in-out infinite}
 @keyframes sweep{0%,60%{left:-60%}100%{left:130%}}
 @media (prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none;transition:none}
+  .js .reveal{opacity:1;transform:none;transition:none}
   .hero-icons img,.ghero .g-icon,.hero-dots,.hero h1 span,.play::after{animation:none}
   .hero-icons img{transform:rotate(var(--r,0deg))}
   .app:hover,.feature:hover,.item:hover,.other:hover,.legal-card:hover,.value:hover,.social:hover,.vid:hover,.play:hover{transform:none}
@@ -261,7 +261,7 @@ footer a:hover{color:var(--text);text-decoration:underline}
 
 /* ---------- Apple-style scroll animations ---------- */
 :root{--ease:cubic-bezier(.2,.8,.2,1)}
-.reveal{transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease);filter:blur(6px)}
+.js .reveal{transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease);filter:blur(6px)}
 .reveal.in{filter:none}
 /* staggered children */
 .stagger>*{opacity:0;transform:translateY(28px) scale(.98);filter:blur(6px);transition:opacity .8s var(--ease),transform .8s var(--ease),filter .8s var(--ease);transition-delay:calc(var(--i,0)*70ms)}
@@ -298,7 +298,7 @@ footer a:hover{color:var(--text);text-decoration:underline}
 
 @media (prefers-reduced-motion:reduce){
   .stagger>*,.shots img{opacity:1;transform:none;filter:none;transition:none}
-  .reveal{filter:none}
+  .js .reveal{filter:none}
   .hero .wrap>div:first-child,.ghero .wrap>div:last-child,.hero-icons,.hero-icons img,.ghero .g-icon{transform:none;translate:none;scale:none;opacity:1}
   .hero h1,.ghero h1,.hero p,.ghero p,.ghero .g-sub,.hero-actions,.g-actions,.facts,.ghero .g-icon{animation:none}
   .statement{height:auto}.statement .sticky{position:static;height:auto;padding:80px 0}
@@ -368,3 +368,45 @@ footer h4 a{display:inline-flex;align-items:center;min-height:32px}
 
 /* real studio logo in header */
 .logo-img{width:34px;height:34px;border-radius:10px;object-fit:cover;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 2px 8px rgba(80,60,200,.35)}
+
+/* ---------- Phones: shorter scroll-lit statement ---------- */
+@media (max-width:600px){
+  .statement{height:150vh}
+  .statement p{font-size:clamp(30px,8.4vw,40px)}
+}
+
+/* ---------- Legal pages (privacy, terms, delete data) ---------- */
+.skip{position:absolute;left:12px;top:-80px;z-index:20;background:var(--surface);color:var(--text);padding:10px 14px;border-radius:10px;font-weight:700}
+.skip:focus{top:10px}
+.page-legal main{padding:28px 0 8px}
+.legal{max-width:760px}
+.legal-bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;padding:14px 18px;margin-bottom:28px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.legal-app{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font:600 19px Fredoka,sans-serif}
+.legal-app img{width:40px;height:40px;border-radius:11px}
+.legal-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-left:auto}
+.legal-tabs a{color:var(--muted);text-decoration:none;font-weight:700;font-size:15px;padding:8px 12px;border-radius:10px}
+.legal-tabs a:hover{color:var(--text);background:var(--surface-2)}
+.legal-tabs a[aria-current="page"]{color:var(--ink,var(--brand));background:var(--soft,var(--surface-2))}
+.legal h1{font-size:clamp(30px,5vw,40px);font-weight:700;margin:0 0 6px}
+.legal h2{font-size:21px;font-weight:600;margin:32px 0 8px;color:var(--ink,var(--brand))}
+.legal h3{font-size:17px;font-weight:600;margin:20px 0 6px}
+.legal p,.legal li{font-size:16.5px}
+.legal ul,.legal ol{padding-left:22px}
+.legal li{margin:4px 0}
+.legal a{color:var(--ink,var(--brand));overflow-wrap:anywhere}
+.legal .updated{color:var(--muted);font-size:14px;margin:0 0 20px}
+.legal .identifier{overflow-wrap:anywhere;font-size:13px;color:var(--muted)}
+.legal .summary{border-left:4px solid var(--ink,var(--brand));padding:4px 18px;background:var(--surface);border-radius:0 14px 14px 0}
+.legal .steps{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 18px}
+@media (max-width:600px){
+  .legal-bar{padding:12px 14px}
+  .legal-tabs{margin-left:0;width:100%}
+  .legal-tabs a{padding:8px 10px}
+}
+
+/* ---------- Phones: bigger tap targets for small links ---------- */
+@media (max-width:600px){
+  .legal-links a,.app-link,.crumbs a,.copy a,footer ul a,.facts-table a{display:inline-block;padding-top:8px;padding-bottom:8px}
+  footer li{margin:0}
+  .foot-social a{min-width:44px;min-height:44px;display:inline-grid;place-items:center}
+}

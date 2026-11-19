@@ -1,4 +1,7 @@
 /* Shivi Games – shared page behaviour: Apple-style scroll animations and tap-to-play YouTube videos. */
+// Scroll animations only hide content once this script runs, so pages stay readable without it.
+document.documentElement.classList.add('js');
+
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
