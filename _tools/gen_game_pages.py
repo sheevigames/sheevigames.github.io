@@ -57,6 +57,7 @@ APPS = {
      ('🔤','Word Puzzle','Four word games in one: Word Search, Scramble, Guess the Word and Word Ladder.'),
    ],
    legal=[('privacy.html','Privacy Policy','What the app collects and why'),('terms.html','Terms of Use','The rules for using Boards')],
+   faq=[('Is Boards free?', 'Yes. Boards is free to download and play. It shows ads from Google AdMob, and reward videos, for example for an extra hint, are always your choice.'), ('Can I play with friends without the internet?', 'Yes. Choose Nearby to connect phones directly over Bluetooth in Chess, Checkers, Carrom, Ludo, Snakes &amp; Ladders and Sling Puck. You can also pass one phone around and take turns.'), ('Which games are in Boards?', 'Nine games: Chess, Checkers, Ludo, Snakes &amp; Ladders, Carrom, Sling Puck, Sudoku, Nonogram and Word Puzzle, which has four word games in one.'), ('Do I need an account?', 'No. There is no sign-up. Your profile, progress, scores and settings are saved only on your phone.'), ('Why does Boards ask for location on older Android phones?', 'On Android 11 and older, Android requires location permission to look for nearby Bluetooth devices. Boards does not read or store your location.'), ('Which languages does Boards support?', 'English, Hindi, Spanish, Portuguese, French, Arabic and Urdu.')],
    # YouTube Shorts shown in "See it in action": (video ID, caption). Newest first.
    videos=[
      ('zBaGysvKhB8','Chess, Ludo, Carrom &amp; Sudoku in ONE app'),
@@ -93,6 +94,7 @@ APPS = {
      ('🏛️','Moonlit Ruins','Ancient ruins by moonlight.'),
    ],
    legal=[('rogue-altitude-privacy.html','Privacy Policy','What the game collects and why'),('rogue-altitude-terms.html','Terms of Use','The rules for playing Rogue Altitude'),('rogue-altitude-delete-data.html','Delete your data','How to remove your game data')],
+   faq=[('When can I play Rogue Altitude?', 'Rogue Altitude is coming soon to Google Play. Tap <strong>Notify me at launch</strong> above and we will let you know when it is out.'), ('Can I play with friends?', 'Yes. Battle friends in the same room over Bluetooth or on the same Wi-Fi network. No accounts are needed.'), ('Can I play on my own?', 'Yes. Train against anywhere from zero to ten bots to practise before you face real players.'), ('Is Rogue Altitude free?', 'Yes. It is free to play, and ads only appear when you choose to watch a rewarded ad.'), ('How many pilots and arenas are there?', 'Twelve pilots across five classes (Assault, Scout, Heavy, Ace and Marksman) and nine arenas, each with its own layout and cover.'), ('How do I delete my game data?', 'Your career and settings are stored on your device. See <a href="../rogue-altitude-delete-data.html">Delete your data</a> for the steps, or to ask us to delete anything you have sent us.')],
  ),
  'mindsprint': dict(
    cls='mind', page='page-mind', name='MindSprint', sub='Focus &amp; Memory', icon='mindsprint-icon.png',
@@ -121,6 +123,7 @@ APPS = {
      ('🐝','Hive Fill','Fit every piece in the hive.'),
    ],
    legal=[('mindsprint-privacy.html','Privacy Policy','What the app collects and why'),('mindsprint-terms.html','Terms of Use','The rules for using MindSprint')],
+   faq=[('When can I play MindSprint?', 'MindSprint is coming soon to Google Play. Tap <strong>Notify me at launch</strong> above and we will let you know when it is out.'), ('Does MindSprint work offline?', "Yes. You don't need the internet to play."), ('Which puzzles are included?', 'Seven brain games: Water Sort, Pipe Path, Garden Grid, Memory Lanterns, Arrow Drift, Rider Rush and Hive Fill.'), ('Is MindSprint free?', 'Yes. It is free and shows ads from Google AdMob.'), ('Do I need an account?', 'No. There is no sign-up, and your scores and settings stay on your device.'), ('What if I get stuck on a level?', 'Many puzzles offer a hint, and you can replay any level you have unlocked. The Daily Challenge is matched to the level you have reached.')],
  ),
 }
 
@@ -138,6 +141,26 @@ def app_ld(slug, a):
     if a['play']:
         d["downloadUrl"] = a['play']; d["installUrl"] = a['play']
     return _j.dumps(d)
+
+def faq_ld(a):
+    import json as _j, re as _re, html as _h
+    qs = a.get('faq') or []
+    if not qs: return ''
+    clean = lambda t: _h.unescape(_re.sub(r'<[^>]+>', '', t))
+    d = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": clean(q), "acceptedAnswer": {"@type": "Answer", "text": clean(ans)}} for q, ans in qs]}
+    return '\n<script type="application/ld+json">' + _j.dumps(d, ensure_ascii=False) + '</script>'
+
+def faq_block(a):
+    qs = a.get('faq') or []
+    if not qs: return ''
+    items = ''.join(f'<details class="faq-item" name="faq"><summary>{q}</summary><p>{ans}</p></details>' for q, ans in qs)
+    return f'''<section class="block" id="faq" style="scroll-margin-top:80px"><div class="wrap">
+  <div class="section-head reveal"><h2>FAQ</h2></div>
+  <div class="faq">{items}</div>
+</div></section>
+
+'''
 
 def header():
     return '''<header class="top"><div class="wrap">
@@ -215,7 +238,7 @@ def page(slug, a):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#3D4CAE">
-<script type="application/ld+json">{app_ld(slug, a)}</script>
+<script type="application/ld+json">{app_ld(slug, a)}</script>{faq_ld(a)}
 <link rel="canonical" href="https://shivisgames.com/{slug}/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -257,7 +280,7 @@ def page(slug, a):
   <div class="list">{items}</div>
 </div></section>
 
-<section class="block" id="legal" style="scroll-margin-top:80px"><div class="wrap">
+{faq_block(a)}<section class="block" id="legal" style="scroll-margin-top:80px"><div class="wrap">
   <div class="section-head reveal"><h2>Privacy, terms &amp; support</h2><p>Everything about how {a["name"]} handles your information, and how to reach us.</p></div>
   <div class="legal-cards">{legal}</div>
 </div></section>

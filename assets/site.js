@@ -94,6 +94,44 @@ document.documentElement.classList.add('js');
   });
 })();
 
+/* FAQ: one answer open at a time, with a slide animation for opening and closing. */
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canAnimate = !reduce && typeof Element.prototype.animate === 'function';
+  function body(d) { return d.querySelector('summary + *'); }
+  function slide(d, opening) {
+    var el = body(d);
+    if (!el || !canAnimate) { d.open = opening; return; }
+    if (d._anim) d._anim.cancel();
+    if (opening) d.open = true;
+    var full = el.scrollHeight;
+    var frames = opening
+      ? [{ height: '0px', opacity: 0 }, { height: full + 'px', opacity: 1 }]
+      : [{ height: full + 'px', opacity: 1 }, { height: '0px', opacity: 0 }];
+    el.style.overflow = 'hidden';
+    d._anim = el.animate(frames, { duration: opening ? 280 : 220, easing: 'cubic-bezier(.2,.7,.2,1)' });
+    d._anim.onfinish = function () {
+      d._anim = null; el.style.overflow = '';
+      if (!opening) d.open = false;
+    };
+    d.classList.toggle('closing', !opening);
+    if (!opening) d._anim.addEventListener('finish', function () { d.classList.remove('closing'); });
+  }
+  document.querySelectorAll('.faq').forEach(function (list) {
+    var items = list.querySelectorAll('details');
+    // JavaScript handles "one open at a time" itself, so the close can animate too.
+    items.forEach(function (d) { d.removeAttribute('name'); });
+    items.forEach(function (d) {
+      d.querySelector('summary').addEventListener('click', function (e) {
+        e.preventDefault();
+        var opening = !d.open || d.classList.contains('closing');
+        if (opening) items.forEach(function (o) { if (o !== d && o.open && !o.classList.contains('closing')) slide(o, false); });
+        slide(d, opening);
+      });
+    });
+  });
+})();
+
 /* ---------- Google Analytics, only after the visitor accepts cookies ---------- */
 (function () {
   var GA_ID = 'G-FV42LY3TEY';
