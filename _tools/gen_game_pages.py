@@ -102,7 +102,7 @@ APPS = {
  ),
  'mindsprint': dict(
    cls='mind', page='page-mind', name='MindSprint', sub='Focus &amp; Memory', icon='mindsprint-icon.png',
-   play=None,
+   play='https://play.google.com/store/apps/details?id=com.shivi.mindSprint',
    meta='Train focus and memory with seven quick brain games in one free app, with hundreds of levels and a Daily Challenge.',
    tagline='Seven quick brain games in one free app. Sort, connect, plan and remember your way through hundreds of levels, with a Daily Challenge that grows with you.',
    facts=['🆓 Free','🧠 7 brain games','✈️ Play offline','🗓️ Daily challenges'],
@@ -127,7 +127,7 @@ APPS = {
      ('🐝','Hive Fill','Fit every piece in the hive.'),
    ],
    legal=[('mindsprint-privacy.html','Privacy Policy','What the app collects and why'),('mindsprint-terms.html','Terms of Use','The rules for using MindSprint')],
-   faq=[('When can I play MindSprint?', 'MindSprint is coming soon to Google Play. Tap <strong>Notify me at launch</strong> above and we will let you know when it is out.'), ('Does MindSprint work offline?', "Yes. You don't need the internet to play."), ('Which puzzles are included?', 'Seven brain games: Water Sort, Pipe Path, Garden Grid, Memory Lanterns, Arrow Drift, Rider Rush and Hive Fill.'), ('Is MindSprint free?', 'Yes. It is free and shows ads from Google AdMob.'), ('Do I need an account?', 'No. There is no sign-up, and your scores and settings stay on your device.'), ('What if I get stuck on a level?', 'Many puzzles offer a hint, and you can replay any level you have unlocked. The Daily Challenge is matched to the level you have reached.')],
+   faq=[('Where can I get MindSprint?', 'MindSprint is free on Google Play for Android phones and tablets. Tap <strong>Get it on Google Play</strong> above to install it.'), ('Does MindSprint work offline?', "Yes. You don't need the internet to play."), ('Which puzzles are included?', 'Seven brain games: Water Sort, Pipe Path, Garden Grid, Memory Lanterns, Arrow Drift, Rider Rush and Hive Fill.'), ('Is MindSprint free?', 'Yes. It is free and shows ads from Google AdMob.'), ('Do I need an account?', 'No. There is no sign-up, and your scores and settings stay on your device.'), ('What if I get stuck on a level?', 'Many puzzles offer a hint, and you can replay any level you have unlocked. The Daily Challenge is matched to the level you have reached.')],
  ),
 }
 
